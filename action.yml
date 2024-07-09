@@ -3,10 +3,6 @@ description: "Download Binaries from Server"
 author: "jhersonharyson"
 
 inputs:
-  project-name:
-    description: "Project Name"
-    required: true
-    default: ${{github.event.repository.name}}
   host:
     description: "Host"
     required: true
@@ -15,5 +11,5 @@ runs:
   using: "composite"
   steps:
     - name: Donwloading
-      run: ${{ github.action_path }}/download.sh scan ${{inputs.project-name}} ${{inputs.host}}
+      run: ${{ github.action_path }}/download.sh ${{inputs.host}}
       shell: bash
