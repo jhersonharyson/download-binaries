@@ -7,38 +7,13 @@ inputs:
     description: "Project Name"
     required: true
     default: ${{github.event.repository.name}}
-  server:
+  host:
     description: "Host"
     required: true
     default: ${{github.event.repository.name}}
-
 runs:
   using: "composite"
   steps:
-    - name: Get Docker Deps
-      run: |
-        ${{ github.action_path }}/makefile.sh docker-deps-get
-        ${{ github.action_path }}/makefile.sh sonar-ext-get
+    - name: Donwloading
+      run: ${{ github.action_path }}/download.sh scan ${{inputs.project-name}} ${{inputs.host}}
       shell: bash
-
-    - name: Scanning
-      run: ${{ github.action_path }}/makefile.sh scan
-      shell: bash
-      env:
-        SONAR_PROJECT_NAME: ${{inputs.sonar-project-name}}
-        SONAR_PROJECT_KEY: ${{inputs.sonar-project-key}}
-        SONAR_SOURCE_PATH: ${{inputs.sonar-source-path}}
-        SONAR_METRICS_PATH: ${{inputs.sonar-metrics-path}}
-        SONAR_INSTANCE_PORT: ${{ inputs.sonar-instance-port }}
-        SONAR_GITROOT: ${{ github.workspace }}
-
-    - name: Scan Results
-      run: ${{ github.action_path }}/makefile.sh results
-      shell: bash
-      env:
-        SONAR_PROJECT_NAME: ${{inputs.sonar-project-name}}
-        SONAR_PROJECT_KEY: ${{inputs.sonar-project-key}}
-        SONAR_SOURCE_PATH: ${{inputs.sonar-source-path}}
-        SONAR_METRICS_PATH: ${{inputs.sonar-metrics-path}}
-        SONAR_INSTANCE_PORT: ${{ inputs.sonar-instance-port }}
-        SONAR_GITROOT: ${{ github.workspace }}
