@@ -19,14 +19,24 @@ downloadFile="binaries.zip"
 # Diretório onde descompactar os arquivos
 outputDir="binaries"
 
-# Faz o download do arquivo usando curl
-curl --location "$downloadUrl" --output "$downloadFile"
+# Faz o download do arquivo usando curl com algumas opções adicionais
+curl --location --fail --retry 3 --retry-delay 5 "$downloadUrl" --output "$downloadFile"
 
 # Verifica o status do download
 if [ $? -eq 0 ]; then
   echo "Successful Download"
 else
   echo "Download Error."
+  exit 1
+fi
+
+# Exibe o conteúdo do arquivo baixado para depuração
+echo "Content of the downloaded file:"
+head -c 200 "$downloadFile"  # Mostra os primeiros 200 bytes do arquivo para verificação
+
+# Verifica se o arquivo baixado é um arquivo zip válido
+if ! file "$downloadFile" | grep -q 'Zip archive data'; then
+  echo "Error: Downloaded file is not a valid zip archive."
   exit 1
 fi
 
