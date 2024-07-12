@@ -1,12 +1,15 @@
 #!/bin/bash
 
-# Verifica se o nome do projeto foi passado como parâmetro
+# Verifica se a URL de download foi passada como parâmetro
 if [ -z "$1" ]; then
-  echo "Use: $0 <host>"
+  echo "Use: $0 <url>"
   exit 1
 fi
 
 # Parâmetro do script
+downloadUrl=$1
+
+# Nome do projeto
 projectName="mgrowth-point-cms"
 
 # Obtém o hash do commit atual do Git
@@ -16,41 +19,42 @@ if [ -z "$commitHash" ]; then
   exit 1
 fi
 
-# # URL do download
-# #downloadUrl="https://local.adminml.com:8443/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
-downloadUrl=$0 #"https://api.mercadopago.com/mgrowth-quality/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
-# downloadUrl="https://quality-beta.adminml.com/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
-
-# # Nome do arquivo para salvar o download
+# Nome do arquivo para salvar o download
 downloadFile="${projectName}-${commitHash}.zip"
 
-# # Diretório onde descompactar os arquivos
-# outputDir="binaries"
+# Diretório onde descompactar os arquivos
+outputDir="binaries"
 
-# # Faz o download do arquivo usando curl
-curl --location "$downloadUrl" --output "$downloadFile"
+# Faz o download do arquivo usando curl
+curl --location --fail "$downloadUrl" --output "$downloadFile"
 
-# # Verifica o status do download
-# if [ "$response" -eq 200 ]; then
-#   echo "Successful Download"
-# else
-#   echo "Download Error. Status HTTP: $response"
-#   exit 1
-# fi
+# Verifica o status do download
+if [ $? -ne 0 ]; then
+  echo "Download Error."
+  exit 1
+else
+  echo "Successful Download"
+fi
 
-# # Cria o diretório de saída se não existir
-# mkdir -p "$outputDir"
+# Verifica se o arquivo baixado é um arquivo zip válido
+if ! file "$downloadFile" | grep -q 'Zip archive data'; then
+  echo "Error: Downloaded file is not a valid zip archive."
+  exit 1
+fi
 
-# # Descompacta o arquivo no diretório de saída
-# unzip -o "$downloadFile" -d "$outputDir"
+# Cria o diretório de saída se não existir
+mkdir -p "$outputDir"
 
-# # Verifica se a descompactação foi bem-sucedida
-# if [ $? -eq 0 ]; then
-#   echo "File unziped with success in directory: $outputDir."
-# else
-#   echo "Error when try to unzip file."
-#   exit 1
-# fi
+# Descompacta o arquivo no diretório de saída
+unzip -o "$downloadFile" -d "$outputDir"
 
-# # Remove o arquivo zip após a descompactação
-# rm -f "$downloadFile"
+# Verifica se a descompactação foi bem-sucedida
+if [ $? -eq 0 ]; then
+  echo "File unzipped with success in directory: $outputDir."
+else
+  echo "Error when trying to unzip file."
+  exit 1
+fi
+
+# Remove o arquivo zip após a descompactação
+rm -f "$downloadFile"
