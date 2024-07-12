@@ -6,15 +6,8 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-
-# Verifica se o nome do projeto foi passado como parâmetro
-if [ -z "$2" ]; then
-  echo "Use: $1 <projectName>"
-  exit 1
-fi
-
 # Parâmetro do script
-downloadUrl=$1
+downloadUrl=$0
 
 # Obtém o hash do commit atual do Git
 commitHash=$(git rev-parse HEAD)
@@ -25,7 +18,7 @@ fi
 
 
 # Nome do arquivo para salvar o download
-downloadFile="${commitHash}.zip"
+downloadFile="binaries.zip"
 
 # Diretório onde descompactar os arquivos
 outputDir="binaries"
