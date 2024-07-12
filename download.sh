@@ -6,6 +6,13 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
+
+# Verifica se o nome do projeto foi passado como parâmetro
+if [ -z "$2" ]; then
+  echo "Use: $1 <projectName>"
+  exit 1
+fi
+
 # Parâmetro do script
 downloadUrl=$1
 
@@ -38,7 +45,7 @@ curl --location "$downloadUrl" --output $downloadFile
 mkdir -p "$outputDir"
 
 # Descompacta o arquivo no diretório de saída
-unzip -o "$commitHash" -d "$outputDir"
+unzip -o "$downloadFile" -d "$outputDir"
 
 # Verifica se a descompactação foi bem-sucedida
 if [ $? -eq 0 ]; then
