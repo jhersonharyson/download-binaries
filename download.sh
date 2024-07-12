@@ -18,7 +18,8 @@ fi
 
 # URL do download
 #downloadUrl="https://local.adminml.com:8443/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
-downloadUrl=$0#"https://api.mercadopago.com/mgrowth-quality/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
+downloadUrl=$0 
+#"https://api.mercadopago.com/mgrowth-quality/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
 #downloadUrl="https://quality-beta.adminml.com/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
 
 # Nome do arquivo para salvar o download
