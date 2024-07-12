@@ -24,15 +24,15 @@ downloadFile="${projectName}-${commitHash}.zip"
 outputDir="binaries"
 
 # Faz o download do arquivo usando curl
-response=$(curl -s -w "%{http_code}" -o "$downloadFile" "$downloadUrl")
+curl --location "$downloadUrl" --output $downloadFile
 
-# Verifica o status do download
-if [ "$response" -eq 200 ]; then
-  echo "Successful Download"
-else
-  echo "Download Error. Status HTTP: $response"
-  exit 1
-fi
+# # Verifica o status do download
+# if [ "$response" -eq 200 ]; then
+#   echo "Successful Download"
+# else
+#   echo "Download Error. Status HTTP: $response"
+#   exit 1
+# fi
 
 # Cria o diretório de saída se não existir
 mkdir -p "$outputDir"
