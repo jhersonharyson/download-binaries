@@ -10,7 +10,7 @@ fi
 projectName="hash"
 
 # Obtém o hash do commit atual do Git
-commitHash="5f11d68db08f53c0185f7ec50082670ae3aa325f"
+commitHash=$(git rev-parse HEAD)
 if [ -z "$commitHash" ]; then
   echo "Error: Cannot get current commit hash."
   exit 1
