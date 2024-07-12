@@ -2,12 +2,12 @@
 
 # Verifica se o nome do projeto foi passado como parâmetro
 if [ -z "$1" ]; then
-  echo "Use: $0 <projectName>"
+  echo "Use: $0 <host>"
   exit 1
 fi
 
 # Parâmetro do script
-projectName="mgrowth-point-cms"
+projectName="hash"
 
 # Obtém o hash do commit atual do Git
 commitHash="5f11d68db08f53c0185f7ec50082670ae3aa325f"
@@ -18,7 +18,7 @@ fi
 
 # URL do download
 #downloadUrl="https://local.adminml.com:8443/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
-downloadUrl="https://api.mercadopago.com/mgrowth-quality/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
+downloadUrl=$0#"https://api.mercadopago.com/mgrowth-quality/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
 #downloadUrl="https://quality-beta.adminml.com/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
 
 # Nome do arquivo para salvar o download
