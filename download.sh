@@ -1,35 +1,40 @@
 #!/bin/bash
 
-# Verifica se o URL de download e o nome do projeto foram passados como parâmetros
-if [ $# -ne 1 ]; then
-  echo "Use: $0 <url> <project-name>"
+# Verifica se o nome do projeto foi passado como parâmetro
+if [ -z "$1" ]; then
+  echo "Use: $0 <projectName>"
   exit 1
 fi
 
-# Parâmetros do script
-downloadUrl=$1
+# Parâmetro do script
+projectName="mgrowth-point-cms"
 
 # Obtém o hash do commit atual do Git
-commitHash=$(git rev-parse HEAD)
+commitHash="5f11d68db08f53c0185f7ec50082670ae3aa325f"
 if [ -z "$commitHash" ]; then
   echo "Error: Cannot get current commit hash."
   exit 1
 fi
 
+# URL do download
+#downloadUrl="https://local.adminml.com:8443/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
+downloadUrl="https://api.mercadopago.com/mgrowth-quality/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
+#downloadUrl="https://quality-beta.adminml.com/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
+
 # Nome do arquivo para salvar o download
-downloadFile="binaries.zip"
+downloadFile="${projectName}-${commitHash}.zip"
 
 # Diretório onde descompactar os arquivos
 outputDir="binaries"
 
 # Faz o download do arquivo usando curl
-curl --location "$downloadUrl" --output $downloadFile
+response=$(curl -s -w "%{http_code}" -o "$downloadFile" "$downloadUrl")
 
 # Verifica o status do download
-if [ $? -eq 0 ]; then
+if [ "$response" -eq 200 ]; then
   echo "Successful Download"
 else
-  echo "Download Error."
+  echo "Download Error. Status HTTP: $response"
   exit 1
 fi
 
@@ -41,9 +46,9 @@ unzip -o "$downloadFile" -d "$outputDir"
 
 # Verifica se a descompactação foi bem-sucedida
 if [ $? -eq 0 ]; then
-  echo "File unzipped with success in directory: $outputDir."
+  echo "File unziped with success in directory: $outputDir."
 else
-  echo "Error when trying to unzip file."
+  echo "Error when try to unzip file."
   exit 1
 fi
 
