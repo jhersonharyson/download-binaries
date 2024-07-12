@@ -7,13 +7,10 @@ inputs:
     description: "Host"
     required: true
     default: ${{github.event.repository.name}}
-  project-name:
-    description: "Project Name"
-    required: true
 
 runs:
   using: "composite"
   steps:
     - name: Donwloading
-      run: chmod +x ${{ github.action_path }}/download.sh && ${{ github.action_path }}/download.sh ${{inputs.host}} ${{inputs.project-name}}
+      run: chmod +x ${{ github.action_path }}/download.sh && ${{ github.action_path }}/download.sh ${{inputs.host}}
       shell: bash
