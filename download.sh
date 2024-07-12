@@ -1,14 +1,13 @@
 #!/bin/bash
 
 # Verifica se o URL de download e o nome do projeto foram passados como parâmetros
-if [ $# -ne 2 ]; then
+if [ $# -ne 1 ]; then
   echo "Use: $0 <url> <project-name>"
   exit 1
 fi
 
 # Parâmetros do script
 downloadUrl=$1
-projectName=$2
 
 # Obtém o hash do commit atual do Git
 commitHash=$(git rev-parse HEAD)
