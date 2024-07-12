@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Parâmetros do script
-downloadUrl=$1
+downloadUrl="$1"
 projectName=$2
 
 echo "test url aqui '$downloadUrl'"
@@ -22,7 +22,7 @@ outputDir="binaries"
 # Faz o download do arquivo usando curl
 # curl --location "$downloadUrl" --output $downloadFile
 # curl --location 'https://api.mercadopago.com/mgrowth-quality/api/metrics/quality/download?projectName=mgrowth-point-cms&commit=8d95014ba0e8257d55dbb9c53384e9420b11d562' --output $downloadFile
-curl --location "$downloadUrl" --output $downloadFile
+curl --location $downloadUrl --output $downloadFile
 
 
 # Verifica o status do download
