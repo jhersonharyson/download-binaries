@@ -26,7 +26,7 @@ downloadFile="${projectName}-${commitHash}.zip"
 outputDir="binaries"
 
 # Faz o download do arquivo usando curl
-curl --location --fail $downloadUrl --output $downloadFile
+curl --location --fail ${downloadUrl} --output ${downloadFile}
 
 # Verifica o status do download
 if [ $? -ne 0 ]; then
