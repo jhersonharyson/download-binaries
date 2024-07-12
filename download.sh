@@ -38,7 +38,7 @@ curl --location "$downloadUrl" --output $downloadFile
 mkdir -p "$outputDir"
 
 # Descompacta o arquivo no diretório de saída
-unzip -o "$downloadFile" -d "$outputDir"
+unzip -o "$commitHash" -d "$outputDir"
 
 # Verifica se a descompactação foi bem-sucedida
 if [ $? -eq 0 ]; then
