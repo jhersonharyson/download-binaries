@@ -28,7 +28,7 @@ downloadUrl=$0 #"https://api.mercadopago.com/mgrowth-quality/api/metrics/quality
 # outputDir="binaries"
 
 # # Faz o download do arquivo usando curl
-curl --location "${downloadUrl}"
+curl --location "$downloadUrl"
 
 # # Verifica o status do download
 # if [ "$response" -eq 200 ]; then
