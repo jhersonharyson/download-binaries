@@ -1,26 +1,18 @@
 #!/bin/bash
 
-# Verifica se a URL de download foi passada como parâmetro
-if [ -z "$1" ]; then
-  echo "Use: $0 <url>"
-  exit 1
-fi
-
-# Parâmetro do script
+# Parâmetros do script
 downloadUrl=$1
-
-# Nome do projeto
-projectName="mgrowth-point-cms"
+projectName=$2
 
 # Obtém o hash do commit atual do Git
-commitHash="8d95014ba0e8257d55dbb9c53384e9420b11d562"
+commitHash=$(git rev-parse HEAD)
 if [ -z "$commitHash" ]; then
   echo "Error: Cannot get current commit hash."
   exit 1
 fi
 
 # Nome do arquivo para salvar o download
-downloadFile="${projectName}-${commitHash}.zip"
+downloadFile="binaries.zip"
 
 # Diretório onde descompactar os arquivos
 outputDir="binaries"
@@ -33,12 +25,6 @@ if [ $? -eq 0 ]; then
   echo "Successful Download"
 else
   echo "Download Error."
-  exit 1
-fi
-
-# Verifica se o arquivo baixado é um arquivo zip válido
-if ! file "$downloadFile" | grep -q 'Zip archive data'; then
-  echo "Error: Downloaded file is not a valid zip archive."
   exit 1
 fi
 
