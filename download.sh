@@ -26,14 +26,14 @@ downloadFile="${projectName}-${commitHash}.zip"
 outputDir="binaries"
 
 # Faz o download do arquivo usando curl
-curl --location --fail ${downloadUrl} --output ${downloadFile}
+curl --location "$downloadUrl" --output $downloadFile
 
 # Verifica o status do download
-if [ $? -ne 0 ]; then
+if [ $? -eq 0 ]; then
+  echo "Successful Download"
+else
   echo "Download Error."
   exit 1
-else
-  echo "Successful Download"
 fi
 
 # Verifica se o arquivo baixado é um arquivo zip válido
