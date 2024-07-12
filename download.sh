@@ -4,6 +4,8 @@
 downloadUrl=$1
 projectName=$2
 
+echo "test url aqui $downloadUrl"
+
 # Obtém o hash do commit atual do Git
 commitHash=$(git rev-parse HEAD)
 if [ -z "$commitHash" ]; then
