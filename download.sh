@@ -22,13 +22,13 @@ downloadUrl=$0 #"https://api.mercadopago.com/mgrowth-quality/api/metrics/quality
 # downloadUrl="https://quality-beta.adminml.com/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
 
 # # Nome do arquivo para salvar o download
-# downloadFile="${projectName}-${commitHash}.zip"
+downloadFile="${projectName}-${commitHash}.zip"
 
 # # Diretório onde descompactar os arquivos
 # outputDir="binaries"
 
 # # Faz o download do arquivo usando curl
-curl --location "$downloadUrl"
+curl --location "$downloadUrl" --output "$downloadFile"
 
 # # Verifica o status do download
 # if [ "$response" -eq 200 ]; then
