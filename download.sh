@@ -18,7 +18,7 @@ fi
 
 
 # Nome do arquivo para salvar o download
-downloadFile="${projectName}-${commitHash}.zip"
+downloadFile="${commitHash}.zip"
 
 # Diretório onde descompactar os arquivos
 outputDir="binaries"
