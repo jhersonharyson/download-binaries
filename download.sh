@@ -6,11 +6,9 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-# Parâmetro do script
-projectName="hash"
 
 # Obtém o hash do commit atual do Git
-commitHash=$(git rev-parse HEAD)
+commitHash="8d95014ba0e8257d55dbb9c53384e9420b11d562"
 if [ -z "$commitHash" ]; then
   echo "Error: Cannot get current commit hash."
   exit 1
@@ -18,12 +16,11 @@ fi
 
 # URL do download
 #downloadUrl="https://local.adminml.com:8443/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
-downloadUrl=$0 
-#"https://api.mercadopago.com/mgrowth-quality/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
-#downloadUrl="https://quality-beta.adminml.com/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
+#downloadUrl="https://api.mercadopago.com/mgrowth-quality/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
+downloadUrl=$0 #"https://quality-beta.adminml.com/api/metrics/quality/download?projectName=${projectName}&commit=${commitHash}"
 
 # Nome do arquivo para salvar o download
-downloadFile="${projectName}-${commitHash}.zip"
+downloadFile="binariesFiles.zip"
 
 # Diretório onde descompactar os arquivos
 outputDir="binaries"
