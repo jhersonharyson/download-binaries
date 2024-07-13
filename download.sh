@@ -17,7 +17,7 @@ fi
 downloadFile="binaries.zip"
 
 # Diretório onde descompactar os arquivos
-outputDir="binaries"
+outputDir="."
 
 # Faz o download do arquivo usando curl com algumas opções adicionais
 curl --location --fail --retry 3 --retry-delay 5 "$downloadUrl" --output "$downloadFile"
